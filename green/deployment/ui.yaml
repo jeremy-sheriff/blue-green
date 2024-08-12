@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular-ui-deployment-green
+  labels:
+    app: angular-ui
+    version: green
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: angular-ui
+      version: green
+  template:
+    metadata:
+      labels:
+        app: angular-ui
+        version: green
+    spec:
+      containers:
+        - name: angular-ui
+          image: muhohoweb/angular-ui:1.0.7  # New version
+          ports:
+            - containerPort: 80
+          env:
+            - name: API_URL
+              value: "http://localhost:32651/api"  # Set the API URL
+            - name: IMAGE_VERSION
+              value: "1.0.7"
