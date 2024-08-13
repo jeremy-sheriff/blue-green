@@ -21,7 +21,7 @@ pipeline {
                     if (params.ENVIRONMENT == 'blue') {
                         // Write the transformed YAML to a temporary file
                         sh """
-                        sed 's/{{ENVIRONMENT}}/blue/g; s/{{UI_IMAGE}}/muhohoweb\\/angular-ui:1.0.8/g' /path/to/your/ui.yaml > /path/to/output.yaml
+                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/blue/deployment/ui.yaml > ${tempFile}
                         """
                         // Display the content of the transformed YAML
                         sh "cat ${tempFile}"
