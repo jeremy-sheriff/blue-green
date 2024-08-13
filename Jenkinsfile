@@ -26,8 +26,9 @@ pipeline {
             steps {
                 script {
                     if (params.SWITCH_TRAFFIC) {
+                    //kubectl apply -f blue/service.yaml
                         if (params.ENVIRONMENT == 'blue') {
-                            sh 'kubectl apply -f blue/service.yaml'
+                            sh ''
                         } else {
                             sh 'kubectl apply -f green/service.yaml'
                         }
