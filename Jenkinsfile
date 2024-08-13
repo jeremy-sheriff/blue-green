@@ -1,8 +1,5 @@
 pipeline {
-    agent {
-            label 'local'
-        }
-
+    agent any
 
     parameters {
         choice(name: 'ENVIRONMENT', choices: ['blue', 'green'], description: 'Choose the environment to deploy to')
@@ -16,7 +13,7 @@ pipeline {
             steps {
                 script {
                     if (params.ENVIRONMENT == 'blue') {
-                      sh 'kubectl get all'
+                                sh 'kubectl get all'
                     } else {
                         sh 'kubectl apply -f green-deployment.yaml'
                         sh "kubectl set image deployment/angular-ui-deployment-green angular-ui=muhohoweb/angular-ui:${params.IMAGE_VERSION}"
