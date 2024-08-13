@@ -24,15 +24,14 @@ pipeline {
                         sh """
                         sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/blue/deployment/ui.yaml > ${tempFile}
                         cat ${tempFile}
-                        kubectl apply -f ${tempFile
                         """
                     } else {
                         // Write the transformed YAML to a temporary file for the green environment
-                        //kubectl apply -f ${tempFile}
+                        //
                         sh """
                         sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/green/deployment/ui.yaml > ${tempFile}
                         cat ${tempFile}
-                       
+                       kubectl apply -f ${tempFile}
                         """
                     }
                 }
