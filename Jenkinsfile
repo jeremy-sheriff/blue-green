@@ -13,6 +13,30 @@ pipeline {
     }
 
     stages {
+
+        stage('Preview Transformed YAML') {
+            steps {
+                script {
+                    def tempFile = "/tmp/transformed_ui.yaml"
+                    if (params.ENVIRONMENT == 'BLUE') {
+                        // Write the transformed YAML to a temporary file
+                        sh """
+                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/blue/deployment/ui.yaml > ${tempFile}
+                        cat ${tempFile}
+                        kubectl apply -f ${tempFile}
+                        """
+                    } else {
+                        // Write the transformed YAML to a temporary file for the green environment
+                        sh """
+                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/green/deployment/ui.yaml > ${tempFile}
+                        cat ${tempFile}
+                        kubectl apply -f ${tempFile}
+                        """
+                    }
+                }
+            }
+        }
+
         stage('Deploy to Environment') {
             steps {
                 script {
@@ -31,23 +55,23 @@ pipeline {
             }
         }
 
-        stage('Switch Traffic') {
-            steps {
-                script {
-                    if (params.SWITCH_TRAFFIC) {
-                        echo 'Switching traffic to the selected environment...'
-                        if (params.ENVIRONMENT == 'BLUE') {
-                            // Apply the service configuration for the BLUE environment
-                            sh 'kubectl apply -f /Users/jeremy/work_dir/blue-green/blue/ui-service.yaml'
-                        } else {
-                            // Apply the service configuration for the GREEN environment
-                            sh 'kubectl apply -f /Users/jeremy/work_dir/blue-green/green/ui-service.yaml'
-                        }
-                    } else {
-                        echo 'Traffic switch not requested.'
-                    }
-                }
-            }
-        }
+//        stage('Switch Traffic') {
+//            steps {
+//                script {
+//                    if (params.SWITCH_TRAFFIC) {
+//                        echo 'Switching traffic to the selected environment...'
+//                        if (params.ENVIRONMENT == 'BLUE') {
+//                            // Apply the service configuration for the BLUE environment
+//                            sh 'kubectl apply -f /Users/jeremy/work_dir/blue-green/blue/ui-service.yaml'
+//                        } else {
+//                            // Apply the service configuration for the GREEN environment
+//                            sh 'kubectl apply -f /Users/jeremy/work_dir/blue-green/green/ui-service.yaml'
+//                        }
+//                    } else {
+//                        echo 'Traffic switch not requested.'
+//                    }
+//                }
+//            }
+//        }
     }
 }
