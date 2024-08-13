@@ -6,7 +6,7 @@ pipeline {
     }
 
     parameters {
-        choice(name: 'ENVIRONMENT', choices: ['BLUE', 'GREEN'], description: 'Choose the environment to deploy to')
+        choice(name: 'ENVIRONMENT', choices: ['blue', 'green'], description: 'Choose the environment to deploy to')
         string(name: 'API_IMAGE', defaultValue: '1.0.8', description: 'Docker image version for the API to deploy')
         string(name: 'UI_IMAGE', defaultValue: '1.0.8', description: 'Docker image version for the UI to deploy')
         booleanParam(name: 'SWITCH_TRAFFIC', defaultValue: false, description: 'Switch traffic to the selected environment')
@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     def tempFile = "/tmp/transformed_ui.yaml"
-                    if (params.ENVIRONMENT == 'BLUE') {
+                    if (params.ENVIRONMENT == 'blue') {
                         // Write the transformed YAML to a temporary file
                         //kubectl apply -f ${tempFile}
                         sh """
@@ -41,7 +41,7 @@ pipeline {
         stage('Deploy to Environment') {
             steps {
                 script {
-                    if (params.ENVIRONMENT == 'BLUE') {
+                    if (params.ENVIRONMENT == 'blue') {
                         // Replace placeholders in the BLUE deployment YAML file with the actual parameter values from Jenkins
                         sh """
                         sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/blue/deployment/ui.yaml | kubectl apply -f -
