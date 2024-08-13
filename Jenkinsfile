@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'ENVIRONMENT', choices: ['blue', 'green'], description: 'Choose the environment to deploy to')
-        string(name: 'IMAGE_VERSION', defaultValue: '1.0.1', description: 'Docker image version to deploy')
+        choice(name: 'ENVIRONMENT', choices: ['BLUE', 'GREEN'], description: 'Choose the environment to deploy to')
         booleanParam(name: 'SWITCH_TRAFFIC', defaultValue: false, description: 'Switch traffic to the selected environment')
     }
 
