@@ -15,7 +15,7 @@ pipeline {
                     if (params.ENVIRONMENT == 'blue') {
                         sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
                                 sh 'chmod u+x ./kubectl'
-                                sh './kubectl get pods'
+                                sh 'kubectl get all'
                     } else {
                         sh 'kubectl apply -f green-deployment.yaml'
                         sh "kubectl set image deployment/angular-ui-deployment-green angular-ui=muhohoweb/angular-ui:${params.IMAGE_VERSION}"
