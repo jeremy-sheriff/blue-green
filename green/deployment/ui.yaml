@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: angular-ui-deployment-blue
+  name: angular-ui-deployment-green
   labels:
     app: angular-ui
     version: {{ENVIRONMENT}}
@@ -19,13 +19,13 @@ spec:
     spec:
       containers:
         - name: angular-ui
-          image: muhohoweb/angular-ui:{{UI_IMAGE}}
+          image: muhohoweb/angular-ui:{{UI_IMAGE}}  # New version
           ports:
             - containerPort: 80
           env:
             - name: API_URL
               value: "http://localhost:32651/api"  # Set the API URL
             - name: IMAGE_VERSION
-              value: {{UI_IMAGE}}
-            - name : ENVIRONMENT
+              value: "1.0.7"
+            - name: ENVIRONMENT
               value: {{ENVIRONMENT}}
