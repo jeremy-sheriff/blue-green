@@ -38,8 +38,9 @@ pipeline {
                 script {
                     if (params.SWITCH_TRAFFIC) {
                     //kubectl apply -f blue/service.yaml
-                        if (params.ENVIRONMENT == 'blue') {
-                            sh ''
+                        if (params.ENVIRONMENT == 'BLUE') {
+                        sh 'echo ******** Applying the service ********'
+                            sh 'kubectl apply -f services/ui-service.yaml'
                         } else {
                             sh 'kubectl apply -f green/service.yaml'
                         }
