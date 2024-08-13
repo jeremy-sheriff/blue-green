@@ -7,8 +7,8 @@ pipeline {
 
     parameters {
         choice(name: 'ENVIRONMENT', choices: ['BLUE', 'GREEN'], description: 'Choose the environment to deploy to')
-        string(name: 'API_IMAGE', defaultValue: 'muhohoweb/express-api:1.0.8', description: 'Docker image version for the API to deploy')
-                string(name: 'UI_IMAGE', defaultValue: 'muhohoweb/angular-ui:1.0.8', description: 'Docker image version for the UI to deploy')
+        string(name: 'API_IMAGE', defaultValue: '1.0.8', description: 'Docker image version for the API to deploy')
+        string(name: 'UI_IMAGE', defaultValue: '1.0.8', description: 'Docker image version for the UI to deploy')
         booleanParam(name: 'SWITCH_TRAFFIC', defaultValue: false, description: 'Switch traffic to the selected environment')
     }
 
@@ -22,7 +22,7 @@ pipeline {
                      script {
                         // Replace the placeholder in the YAML file with the actual IMAGE_VERSION from Jenkins parameter
                         sh """
-                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{IMAGE_VERSION}}/${params.IMAGE_VERSION}/g' k8s/angular-ui-deployment.yaml | kubectl apply -f -
+                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' k8s/angular-ui-deployment.yaml | kubectl apply -f -
                         """
                        }
                     } else {
