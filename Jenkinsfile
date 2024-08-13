@@ -14,7 +14,7 @@ pipeline {
 
     stages {
 
-        stage('Deploy to Environment' params.ENVIRONMENT) {
+        stage('Deploy to Environment') {
             steps {
                 script {
                     def tempFile = "/tmp/transformed_ui.yaml"
