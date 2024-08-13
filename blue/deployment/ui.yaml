@@ -4,18 +4,18 @@ metadata:
   name: angular-ui-deployment-blue
   labels:
     app: angular-ui
-    version: blue
+    version:{{ENVIRONMENT}}
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: angular-ui
-      version: blue
+      version:{{ENVIRONMENT}}
   template:
     metadata:
       labels:
         app: angular-ui
-        version: blue
+        version:{{ENVIRONMENT}}
     spec:
       containers:
         - name: angular-ui
@@ -26,4 +26,4 @@ spec:
             - name: API_URL
               value: "http://localhost:32651/api"  # Set the API URL
             - name: IMAGE_VERSION
-              value: "1.0.8"
+              value: {{UI_IMAGE}}
