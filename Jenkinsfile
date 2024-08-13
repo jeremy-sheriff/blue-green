@@ -7,6 +7,7 @@ pipeline {
         booleanParam(name: 'SWITCH_TRAFFIC', defaultValue: false, description: 'Switch traffic to the selected environment')
     }
 
+
     stages {
         stage('Deploy to Environment') {
             steps {
