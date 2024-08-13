@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     if (params.ENVIRONMENT == 'blue') {
-                                sh 'kubectl get all'
+                                sh '/usr/local/bin/kubectl get all'
                     } else {
                         sh 'kubectl apply -f green-deployment.yaml'
                         sh "kubectl set image deployment/angular-ui-deployment-green angular-ui=muhohoweb/angular-ui:${params.IMAGE_VERSION}"
