@@ -15,7 +15,7 @@ pipeline {
         stage('Deploy to Environment') {
             steps {
                 script {
-                    if (params.ENVIRONMENT == 'blue') {
+                    if (params.ENVIRONMENT == 'BLUE') {
                      sh "kubectl apply -f blue/deployment/ui.yaml"
                      sh "sleep 20"
                      sh "kubectl get all"
