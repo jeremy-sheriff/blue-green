@@ -4,22 +4,22 @@ metadata:
   name: angular-ui-deployment-blue
   labels:
     app: angular-ui
-    version:{{ENVIRONMENT}}
+    version: {{ENVIRONMENT}}
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: angular-ui
-      version:{{ENVIRONMENT}}
+      version: {{ENVIRONMENT}}
   template:
     metadata:
       labels:
         app: angular-ui
-        version:{{ENVIRONMENT}}
+        version: {{ENVIRONMENT}}
     spec:
       containers:
         - name: angular-ui
-          image: muhohoweb/angular-ui:{{UI_IMAGE}}
+          image: muhohoweb/angular-ui: {{UI_IMAGE}}
           ports:
             - containerPort: 80
           env:
