@@ -7,8 +7,8 @@ pipeline {
 
     parameters {
         choice(name: 'ENVIRONMENT', choices: ['BLUE', 'GREEN'], description: 'Choose the environment to deploy to')
-        string(name: 'API_IMAGE', defaultValue: 'muhohoweb/express-api:1.0.8', description: 'Docker image version for the API to deploy')
-        string(name: 'UI_IMAGE', defaultValue: 'muhohoweb/angular-ui:1.0.8', description: 'Docker image version for the UI to deploy')
+        string(name: 'API_IMAGE', defaultValue: '1.0.8', description: 'Docker image version for the API to deploy')
+        string(name: 'UI_IMAGE', defaultValue: '1.0.8', description: 'Docker image version for the UI to deploy')
         booleanParam(name: 'SWITCH_TRAFFIC', defaultValue: false, description: 'Switch traffic to the selected environment')
     }
 
