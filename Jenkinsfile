@@ -20,10 +20,10 @@ pipeline {
                 script {
                     if (params.ENVIRONMENT == 'BLUE') {
                      script {
-                        // Replace the placeholder in the YAML file with the actual IMAGE_VERSION from Jenkins parameter
-                        sh """
-                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' k8s/angular-ui-deployment.yaml | kubectl apply -f -
-                        """
+                        // Replace placeholders in the YAML file with the actual parameter values from Jenkins
+                       sh """
+                       sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{API_IMAGE}}/${params.API_IMAGE}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/blue/deployment/ui.yaml | kubectl apply -f -
+                                            """
                        }
                     } else {
                         sh 'kubectl apply -f green-deployment.yaml'
