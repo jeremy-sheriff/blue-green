@@ -7,6 +7,8 @@ pipeline {
 
     parameters {
         choice(name: 'ENVIRONMENT', choices: ['BLUE', 'GREEN'], description: 'Choose the environment to deploy to')
+        string(name: 'API_IMAGE', defaultValue: 'muhohoweb/express-api:1.0.8', description: 'Docker image version for the API to deploy')
+                string(name: 'UI_IMAGE', defaultValue: 'muhohoweb/angular-ui:1.0.8', description: 'Docker image version for the UI to deploy')
         booleanParam(name: 'SWITCH_TRAFFIC', defaultValue: false, description: 'Switch traffic to the selected environment')
     }
 
@@ -17,9 +19,12 @@ pipeline {
             //kubectl apply -f blue/deployment/ui.yaml
                 script {
                     if (params.ENVIRONMENT == 'BLUE') {
-                     sh "echo ${params.API_IMAGE}"
-                     sh "sleep 20"
-                     sh "kubectl get all"
+                     script {
+                        // Replace the placeholder in the YAML file with the actual IMAGE_VERSION from Jenkins parameter
+                        sh """
+                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{IMAGE_VERSION}}/${params.IMAGE_VERSION}/g' k8s/angular-ui-deployment.yaml | kubectl apply -f -
+                        """
+                       }
                     } else {
                         sh 'kubectl apply -f green-deployment.yaml'
                         sh "kubectl set image deployment/angular-ui-deployment-green angular-ui=muhohoweb/angular-ui:${params.IMAGE_VERSION}"

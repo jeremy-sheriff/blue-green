@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: angular-ui
-          image: muhohoweb/angular-ui:1.0.8
+          image: muhohoweb/angular-ui:{{IMAGE_VERSION}}
           ports:
             - containerPort: 80
           env:
