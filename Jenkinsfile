@@ -26,7 +26,7 @@ pipeline {
                         // Display the content of the transformed YAML
                         sh "cat ${tempFile}"
                         // Apply the transformed YAML using kubectl
-//                        sh "kubectl apply -f ${tempFile}"
+                        sh "kubectl apply -f ${tempFile}"
                     } else {
                         // Handle green environment similarly
                         sh """
