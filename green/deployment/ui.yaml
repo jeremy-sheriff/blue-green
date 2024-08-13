@@ -26,6 +26,6 @@ spec:
             - name: API_URL
               value: "http://localhost:32651/api"  # Set the API URL
             - name: IMAGE_VERSION
-              value: "1.0.7"
+              value: {{UI_IMAGE}}
             - name: ENVIRONMENT
               value: {{ENVIRONMENT}}
