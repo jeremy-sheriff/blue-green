@@ -39,23 +39,28 @@ pipeline {
             }
         }
 
-//        stage('Switch Traffic') {
-//            steps {
-//                script {
-//                    if (params.SWITCH_TRAFFIC) {
-//                        echo 'Switching traffic to the selected environment...'
-//                        if (params.ENVIRONMENT == 'BLUE') {
-//                            // Apply the service configuration for the BLUE environment
-//                            sh 'kubectl apply -f /Users/jeremy/work_dir/blue-green/blue/ui-service.yaml'
-//                        } else {
-//                            // Apply the service configuration for the GREEN environment
-//                            sh 'kubectl apply -f /Users/jeremy/work_dir/blue-green/green/ui-service.yaml'
-//                        }
-//                    } else {
-//                        echo 'Traffic switch not requested.'
-//                    }
-//                }
-//            }
-//        }
+        stage('Switch Traffic') {
+            steps {
+                script {
+                    def tempServiceFile = "/tmp/transformed_ui_service.yaml"
+                    if (params.SWITCH_TRAFFIC) {
+                        echo 'Switching traffic to the selected environment...'
+                        if (params.ENVIRONMENT == 'blue') {
+                            sh """
+                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
+                            """
+                            sh "cat ${tempServiceFile}"
+                        } else {
+                            sh """
+                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
+                            """
+                            sh "cat ${tempServiceFile}"
+                        }
+                    } else {
+                        echo 'Traffic switch not requested.'
+                    }
+                }
+            }
+        }
     }
 }

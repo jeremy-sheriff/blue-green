@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     app: angular-ui
-    version: blue  # Initially pointing to blue
+    version: {{ENVIRONMENT}}  # Initially pointing to blue
   ports:
     - protocol: TCP
       port: 80
