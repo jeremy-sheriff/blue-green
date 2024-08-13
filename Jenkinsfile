@@ -50,11 +50,13 @@ pipeline {
                             sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g;' /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
                             """
                             sh "cat ${tempServiceFile}"
+                            sh "kubectl apply -f ${tempServiceFile}"
                         } else {
                             sh """
                             sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g;' /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
                             """
                             sh "cat ${tempServiceFile}"
+                            sh "kubectl apply -f ${tempServiceFile}"
                         }
                     } else {
                         echo 'Traffic switch not requested.'
