@@ -38,10 +38,10 @@ pipeline {
                         echo 'Switching traffic to the selected environment...'
                         if (params.ENVIRONMENT == 'BLUE') {
                             // Apply the service configuration for the BLUE environment
-                            sh 'kubectl apply -f /Users/jeremy/work_dir/blue-green/blue/service.yaml'
+                            sh 'kubectl apply -f /Users/jeremy/work_dir/blue-green/blue/ui-service.yaml'
                         } else {
                             // Apply the service configuration for the GREEN environment
-                            sh 'kubectl apply -f /Users/jeremy/work_dir/blue-green/green/service.yaml'
+                            sh 'kubectl apply -f /Users/jeremy/work_dir/blue-green/green/ui-service.yaml'
                         }
                     } else {
                         echo 'Traffic switch not requested.'
