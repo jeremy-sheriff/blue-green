@@ -38,23 +38,23 @@ pipeline {
             }
         }
 
-        stage('Deploy to Environment') {
-            steps {
-                script {
-                    if (params.ENVIRONMENT == 'blue') {
-                        // Replace placeholders in the BLUE deployment YAML file with the actual parameter values from Jenkins
-                        sh """
-                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/blue/deployment/ui.yaml | kubectl apply -f -
-                        """
-                    } else {
-                        // Replace placeholders in the GREEN deployment YAML file with the actual parameter values from Jenkins
-                        sh """
-                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/green/deployment/ui.yaml | kubectl apply -f -
-                        """
-                    }
-                }
-            }
-        }
+//        stage('Deploy to Environment') {
+//            steps {
+//                script {
+//                    if (params.ENVIRONMENT == 'blue') {
+//                        // Replace placeholders in the BLUE deployment YAML file with the actual parameter values from Jenkins
+//                        sh """
+//                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/blue/deployment/ui.yaml | kubectl apply -f -
+//                        """
+//                    } else {
+//                        // Replace placeholders in the GREEN deployment YAML file with the actual parameter values from Jenkins
+//                        sh """
+//                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/green/deployment/ui.yaml | kubectl apply -f -
+//                        """
+//                    }
+//                }
+//            }
+//        }
 
 //        stage('Switch Traffic') {
 //            steps {
