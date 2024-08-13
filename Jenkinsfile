@@ -47,12 +47,12 @@ pipeline {
                         echo 'Switching traffic to the selected environment...'
                         if (params.ENVIRONMENT == 'blue') {
                             sh """
-                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
+                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g;' /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
                             """
                             sh "cat ${tempServiceFile}"
                         } else {
                             sh """
-                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
+                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g;' /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
                             """
                             sh "cat ${tempServiceFile}"
                         }
