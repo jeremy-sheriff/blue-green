@@ -7,8 +7,8 @@ pipeline {
 
     parameters {
         choice(name: 'ENVIRONMENT', choices: ['blue', 'green'], description: 'Choose the environment to deploy to')
-        string(name: 'API_IMAGE', defaultValue: '1.0.8', description: 'Docker image version for the API to deploy')
-        string(name: 'UI_IMAGE', defaultValue: '1.0.8', description: 'Docker image version for the UI to deploy')
+        string(name: 'API_IMAGE', defaultValue: '2.0.0', description: 'Docker image version for the API to deploy')
+        string(name: 'UI_IMAGE', defaultValue: '2.0.0', description: 'Docker image version for the UI to deploy')
         booleanParam(name: 'SWITCH_TRAFFIC', defaultValue: false, description: 'Switch traffic to the selected environment')
     }
 
@@ -18,23 +18,14 @@ pipeline {
             steps {
                 script {
                     def tempFile = "/tmp/transformed_ui.yaml"
-                    if (params.ENVIRONMENT == 'blue') {
                         // Write the transformed YAML to a temporary file
                         sh """
-                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/blue/deployment/ui.yaml > ${tempFile}
+                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/ui.yaml > ${tempFile}
                         """
                         // Display the content of the transformed YAML
                         sh "cat ${tempFile}"
                         // Apply the transformed YAML using kubectl
                         sh "kubectl apply -f ${tempFile}"
-                    } else {
-                        // Handle green environment similarly
-                        sh """
-                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/green/deployment/ui.yaml > ${tempFile}
-                        """
-                        sh "cat ${tempFile}"
-                        sh "kubectl apply -f ${tempFile}"
-                    }
                 }
             }
         }
