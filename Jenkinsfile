@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Use the global variable for the collection path
-                    def result = sh(script: "/opt/homebrew/bin/newman run ${env.TEST_PATH}/collection.json -e ${env.TEST_PATH}/env.json", returnStatus: true)
+                    def result = sh(script: "/opt/homebrew/bin/newman run ${env.TEST_PATH}/good_collection.json -e ${env.TEST_PATH}/env.json", returnStatus: true)
 
                     // Check if tests failed
                     if (result != 0) {
