@@ -5,9 +5,9 @@ metadata:
 spec:
   selector:
     app: angular-ui
-    version: {{ENVIRONMENT}}  # Initially pointing to blue
+    version: {{ENVIRONMENT}}
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: NodePort  # Change this to LoadBalancer if you need external access
+  type: NodePort
