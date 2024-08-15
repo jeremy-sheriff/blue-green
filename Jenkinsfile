@@ -38,6 +38,7 @@ pipeline {
                         echo 'Switching traffic to the selected environment...'
                         if (params.ENVIRONMENT == 'blue') {
                             sh "ls -l"
+                            sh "pwd"
                             sh """
                             sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g;' /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
                             """
