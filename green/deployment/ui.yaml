@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: angular-ui-deployment-green
+  name: angular-ui-deployment-{{ENVIRONMENT}}
   labels:
     app: angular-ui
     version: {{ENVIRONMENT}}
