@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         PATH = "$PATH:/usr/local/bin"
+        TEST_PATH =  '/Users/jeremy/work_dir/blue-green/tests'
     }
 
     parameters {
@@ -13,6 +14,20 @@ pipeline {
     }
 
     stages {
+
+        stage('Run Postman Tests') {
+            steps {
+                script {
+                    // Use the global variable for the collection path
+                    def result = sh(script: "/opt/homebrew/bin/newman run ${env.TEST_PATH}/collection.json -e ${env.TEST_PATH}/env.json", returnStatus: true)
+
+                    // Check if tests failed
+                    if (result != 0) {
+                        error "Postman tests failed. Stopping the pipeline."
+                    }
+                }
+            }
+        }
 
         stage('Deploy to Environment') {
             steps {
