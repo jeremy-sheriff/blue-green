@@ -19,6 +19,7 @@ pipeline {
                 script {
                     def tempFile = "/tmp/transformed_ui.yaml"
                         // Write the transformed YAML to a temporary file
+                        sh "pwd"
                         sh """
                         sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/ui.yaml > ${tempFile}
                         """
