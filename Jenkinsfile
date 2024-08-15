@@ -19,10 +19,10 @@ pipeline {
                 script {
                     def tempFile = "/tmp/transformed_ui.yaml"
                     // Write the transformed YAML to a temporary file
-                    sh "echo ${WORKSPACE}"
-                    sh """
-                    sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' ${WORKSPACE}/blue-green/ui.yaml > ${tempFile}
-                    """
+                    sh "ls -l ${WORKSPACE}"
+//                    sh """
+//                    sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' ${WORKSPACE}/blue-green/ui.yaml > ${tempFile}
+//                    """
                     // Display the content of the transformed YAML
                     sh "cat ${tempFile}"
                     // Apply the transformed YAML using kubectl
@@ -32,32 +32,32 @@ pipeline {
         }
 
 
-        stage('Switch Traffic') {
-            steps {
-                script {
-                    def tempServiceFile = "/tmp/transformed_ui_service.yaml"
-                    if (params.SWITCH_TRAFFIC) {
-                        echo 'Switching traffic to the selected environment...'
-                        if (params.ENVIRONMENT == 'blue') {
-                            sh "ls -l"
-                            sh "pwd"
-                            sh """
-                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g;' /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
-                            """
-                            sh "cat ${tempServiceFile}"
-                            sh "kubectl apply -f ${tempServiceFile}"
-                        } else {
-                            sh """
-                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g;' /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
-                            """
-                            sh "cat ${tempServiceFile}"
-                            sh "kubectl apply -f ${tempServiceFile}"
-                        }
-                    } else {
-                        echo 'Traffic switch not requested.'
-                    }
-                }
-            }
-        }
+//        stage('Switch Traffic') {
+//            steps {
+//                script {
+//                    def tempServiceFile = "/tmp/transformed_ui_service.yaml"
+//                    if (params.SWITCH_TRAFFIC) {
+//                        echo 'Switching traffic to the selected environment...'
+//                        if (params.ENVIRONMENT == 'blue') {
+//                            sh "ls -l"
+//                            sh "pwd"
+//                            sh """
+//                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g;' /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
+//                            """
+//                            sh "cat ${tempServiceFile}"
+//                            sh "kubectl apply -f ${tempServiceFile}"
+//                        } else {
+//                            sh """
+//                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g;' /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
+//                            """
+//                            sh "cat ${tempServiceFile}"
+//                            sh "kubectl apply -f ${tempServiceFile}"
+//                        }
+//                    } else {
+//                        echo 'Traffic switch not requested.'
+//                    }
+//                }
+//            }
+//        }
     }
 }
