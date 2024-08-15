@@ -9,7 +9,7 @@ pipeline {
         choice(name: 'ENVIRONMENT', choices: ['blue', 'green'], description: 'Choose the environment to deploy to')
         string(name: 'API_IMAGE', defaultValue: '2.0.0', description: 'Docker image version for the API to deploy')
         string(name: 'UI_IMAGE', defaultValue: '2.0.0', description: 'Docker image version for the UI to deploy')
-        booleanParam(name: 'SWITCH_TRAFFIC', defaultValue: false, description: 'Switch traffic to the selected environment')
+        booleanParam(name: 'SWITCH_TRAFFIC', defaultValue: true, description: 'Switch traffic to the selected environment')
     }
 
     stages {
