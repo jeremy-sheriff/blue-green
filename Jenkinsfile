@@ -18,18 +18,19 @@ pipeline {
             steps {
                 script {
                     def tempFile = "/tmp/transformed_ui.yaml"
-                        // Write the transformed YAML to a temporary file
-                        sh "pwd"
-                        sh """
-                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/ui.yaml > ${tempFile}
-                        """
-                        // Display the content of the transformed YAML
-                        sh "cat ${tempFile}"
-                        // Apply the transformed YAML using kubectl
-                        sh "kubectl apply -f ${tempFile}"
+                    // Write the transformed YAML to a temporary file
+                    sh "echo ${WORKSPACE}"
+                    sh """
+                    sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' ${WORKSPACE}/blue-green/ui.yaml > ${tempFile}
+                    """
+                    // Display the content of the transformed YAML
+                    sh "cat ${tempFile}"
+                    // Apply the transformed YAML using kubectl
+                    sh "kubectl apply -f ${tempFile}"
                 }
             }
         }
+
 
         stage('Switch Traffic') {
             steps {
