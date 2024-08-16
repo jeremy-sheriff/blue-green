@@ -6,7 +6,7 @@ metadata:
     app: angular-ui
     version: {{ENVIRONMENT}}
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: angular-ui

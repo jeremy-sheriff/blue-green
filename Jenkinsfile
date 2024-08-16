@@ -9,8 +9,7 @@ pipeline {
     parameters {
         choice(name: 'ENVIRONMENT', choices: ['blue', 'green'], description: 'Choose the environment to deploy to')
         string(name: 'API_IMAGE', defaultValue: '2.0.0', description: 'Docker image version for the API to deploy')
-        string(name: 'UI_IMAGE', defaultValue: '2.0.0', description: 'Docker image version for the UI to deploy')
-        booleanParam(name: 'SWITCH_TRAFFIC', defaultValue: true, description: 'Switch traffic to the selected environment')
+        string(name: 'UI_IMAGE', defaultValue: '2.0.6', description: 'Docker image version for the UI to deploy')
     }
 
     stages {
@@ -39,34 +38,6 @@ pipeline {
                         """
                         sh "cat ${tempFile}"
                         sh "kubectl apply -f ${tempFile}" //1,2
-                }
-            }
-        }
-
-        stage('Switch Traffic') {
-            steps {
-                script {
-                    def tempServiceFile = "/tmp/transformed_ui_service.yaml"
-                    if (params.SWITCH_TRAFFIC) {
-                        echo 'Switching traffic to the selected environment...'
-                        if (params.ENVIRONMENT == 'blue') {
-                            sh "ls -l"
-                            sh "pwd"
-                            sh """
-                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g;' /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
-                            """
-                            sh "cat ${tempServiceFile}"
-                            sh "kubectl apply -f ${tempServiceFile}"
-                        } else {
-                            sh """
-                            sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g;' /Users/jeremy/work_dir/blue-green/services/ui-service.yaml > ${tempServiceFile}
-                            """
-                            sh "cat ${tempServiceFile}"
-                            sh "kubectl apply -f ${tempServiceFile}"
-                        }
-                    } else {
-                        echo 'Traffic switch not requested.'
-                    }
                 }
             }
         }
