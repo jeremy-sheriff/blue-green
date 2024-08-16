@@ -174,7 +174,7 @@
               "});",
               "// message response value check",
               "pm.test(\"check response message\", function () {",
-              "    pm.expect(jsonData.msg).to.eql('update data success');",
+              "    pm.expect(jsonData.msg).to.eql('update  data success');",
               "});"
             ],
             "type": "text/javascript"
