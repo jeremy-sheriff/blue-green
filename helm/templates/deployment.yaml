@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular-ui-deployment- {{.Values.ui.environment}}
+  labels:
+    app: angular-ui
+    version: {{.Values.ui.environment}}
+spec:
+  replicas: {{.Values.ui.replicaset}}
+  selector:
+    matchLabels:
+      app: angular-ui
+      version: {{.Values.ui.environment}}
+  template:
+    metadata:
+      labels:
+        app: angular-ui
+        version: {{.Values.ui.environment}}
+    spec:
+      containers:
+        - name: angular-ui
+          image:{{.Values.ui.image.repository}}:{{.Values.ui.image.tag}}
+          ports:
+            - containerPort: {{.Values.ui.port}}
+          env:
+            - name: API_URL
+              value: {{.Values.api.url}}  # Set the API URL
+            - name: IMAGE_VERSION
+              value: {{.Values.ui.image.repository}}:{{.Values.ui.image.tag}}
+            - name: ENVIRONMENT
+              value: {{.Values.ui.environment}}
