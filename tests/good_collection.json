@@ -225,7 +225,7 @@
               "});",
               "// address response value check",
               "pm.test(\"address added successfully\", function () {",
-              "    pm.expect(jsonData.msg).to.eql('Add data success');",
+              "    pm.expect(jsonData.msg).to.eql('Add  data success');",
               "});"
             ],
             "type": "text/javascript"
@@ -322,7 +322,7 @@
               "});",
               "// Delete Student",
               "pm.test(\"Delete successful\", function () {",
-              "    pm.expect(jsonData.msg).to.eql('Delete data success');",
+              "    pm.expect(jsonData.msg).to.eql('Delete  data success');",
               "});"
             ],
             "type": "text/javascript"
