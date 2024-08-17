@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    helm upgrade --install angular-ui-${params.ENVIRONMENT} . \
+                    /opt/homebrew/bin/helm upgrade --install angular-ui-${params.ENVIRONMENT} . \
                     --set ui.image.tag=${params.IMAGE_TAG} \
                     --set ui.environment=${params.ENVIRONMENT}
                     """
