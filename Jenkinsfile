@@ -8,6 +8,7 @@ pipeline {
     stages {
         stage('Switch Traffic') {
             steps {
+
                 script {
                     // Switch traffic by updating the primary service's selector
                     sh """
