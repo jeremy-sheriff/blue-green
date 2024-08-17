@@ -14,6 +14,8 @@ pipeline {
                     sh """
                     /usr/local/bin/kubectl patch service angular-ui-service -p '{"spec":{"selector":{"environment":"${params.ENVIRONMENT}"}}}'
                     """
+
+                    sh "/usr/local/bin/kubectl get pods,svc"
                 }
             }
         }
