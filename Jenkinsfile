@@ -31,7 +31,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh "pwd"
+                    sh "kubectl delete deployment angular-ui-deployment-${params.ENVIRONMENT} -n default"
                     sh """
                     /opt/homebrew/bin/helm upgrade --install angular-ui-${params.ENVIRONMENT} ./helm/ \
                     --set ui.image.tag=${params.UI_IMAGE} \
