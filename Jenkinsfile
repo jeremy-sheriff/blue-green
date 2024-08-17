@@ -11,7 +11,7 @@ pipeline {
                 script {
                     // Switch traffic by updating the primary service's selector
                     sh """
-                    kubectl patch service angular-ui-service -p '{"spec":{"selector":{"environment":"${params.ENVIRONMENT}"}}}'
+                    /opt/homebrew/bin/kubectl patch service angular-ui-service -p '{"spec":{"selector":{"environment":"${params.ENVIRONMENT}"}}}'
                     """
                 }
             }
