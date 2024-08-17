@@ -34,7 +34,7 @@ pipeline {
                     sh """
                     /opt/homebrew/bin/helm upgrade --install angular-ui-${params.ENVIRONMENT} . \
                     --set ui.image.tag=${params.UI_IMAGE} \
-                    --set ui.environment=${params.ENVIRONMENT}
+                    --set ui.environment=${params.ENVIRONMENT} --debug
                     """
                 }
             }
