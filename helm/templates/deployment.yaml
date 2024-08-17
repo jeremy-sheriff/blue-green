@@ -26,6 +26,6 @@ spec:
             - name: API_URL
               value: "{{ .Values.api.url }}"
             - name: IMAGE_VERSION
-              value: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}"
+              value: "{{ .Values.ui.image.tag }}"
             - name: ENVIRONMENT
               value: "{{ .Values.ui.environment }}"
