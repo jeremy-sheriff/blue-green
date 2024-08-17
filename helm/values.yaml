@@ -2,9 +2,9 @@ api:
   url: "http://localhost:32651/api"
 
 ui:
-  environment: "ENVIRONMENT_PLACEHOLDER"
+  environment: "green"
   image:
     repository: "muhohoweb/angular-ui"
-    tag: "UI_IMAGE_PLACEHOLDER"
-  port : 80
-  replicaset : 2
+    tag: "2.0.0"
+    port : 80
+  replicaset : 1

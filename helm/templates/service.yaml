@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: angular-ui-service-{{ .Values.ui.environment }}
+  labels:
+    app: angular-ui
+    version: {{ .Values.ui.environment }}
+spec:
+  selector:
+    app: angular-ui
+    version: {{ .Values.ui.environment }}
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: {{ .Values.ui.image.port }}

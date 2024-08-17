@@ -28,18 +28,31 @@ pipeline {
             }
         }
 
-        stage('Deploy to Environment') {
+
+        stage('Deploy') {
             steps {
                 script {
-                    def tempFile = "/tmp/transformed_ui.yaml"
-                        sh "pwd"
-                        sh """
-                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/ui.yaml > ${tempFile}
-                        """
-                        sh "cat ${tempFile}"
-                        sh "kubectl apply -f ${tempFile}" //1,2
+                    sh """
+                    helm upgrade --install angular-ui-${params.ENVIRONMENT} . \
+                    --set ui.image.tag=${params.IMAGE_TAG} \
+                    --set ui.environment=${params.ENVIRONMENT}
+                    """
                 }
             }
         }
+
+//        stage('Deploy to Environment') {
+//            steps {
+//                script {
+//                    def tempFile = "/tmp/transformed_ui.yaml"
+//                        sh "pwd"
+//                        sh """
+//                        sed 's/{{ENVIRONMENT}}/${params.ENVIRONMENT}/g; s/{{UI_IMAGE}}/${params.UI_IMAGE}/g' /Users/jeremy/work_dir/blue-green/ui.yaml > ${tempFile}
+//                        """
+//                        sh "cat ${tempFile}"
+//                        sh "kubectl apply -f ${tempFile}" //1,2
+//                }
+//            }
+//        }
     }
 }
