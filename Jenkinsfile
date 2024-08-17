@@ -31,6 +31,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
+                    sh "pwd"
                     sh """
                     /opt/homebrew/bin/helm upgrade --install angular-ui-${params.ENVIRONMENT} . \
                     --set ui.image.tag=${params.UI_IMAGE} \
