@@ -6,6 +6,7 @@ metadata:
     app: angular-ui
     version: {{ .Values.ui.environment }}
 spec:
+  type : NodePort
   selector:
     app: angular-ui
     version: {{ .Values.ui.environment }}
@@ -13,4 +14,3 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: {{ .Values.ui.image.port }}
-  type : NodePort
